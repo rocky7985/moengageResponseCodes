@@ -1,0 +1,75 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Filter Response Codes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <!-- Input & Actions -->
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-searchbar [(ngModel)]="filter" (ionInput)="onSearchInputChange($event)" debounce="300"
+          placeholder="Enter filter (e.g. 2xx, 404)">
+        </ion-searchbar>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-button expand="block" (click)="searchCodes()" [disabled]="isLoading || !filter.trim()">
+          Search
+        </ion-button>
+      </ion-col>
+
+      <ion-col size="12" *ngIf="filteredCodes.length > 0 && !listAlreadySaved">
+        <ion-button expand="block" color="primary" (click)="promptAndSaveList()">
+          Save List
+        </ion-button>
+      </ion-col>
+
+      <ion-col size="12" *ngIf="listAlreadySaved">
+        <ion-button expand="block" color="medium" disabled>
+          Already Saved
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Loading Spinner -->
+  <ion-grid *ngIf="isLoading" class="spinner-container">
+    <ion-row>
+      <ion-col size="12" class="ion-text-center">
+        <ion-spinner name="crescent"></ion-spinner>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Error Message -->
+  <ion-grid *ngIf="errorMessage">
+    <ion-row>
+      <ion-col size="12">
+        <ion-text color="danger">
+          <p>{{ errorMessage }}</p>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Filtered Results -->
+  <ion-grid *ngIf="filteredCodes.length > 0" class="ion-margin-top">
+    <ion-row>
+      <ion-col size="6" size-md="4" *ngFor="let item of filteredCodes">
+        <ion-card>
+          <img [src]="item.image_url" [alt]="'HTTP code ' + item.code" />
+          <ion-card-content>
+            <ion-card-title>{{ item.code }}</ion-card-title>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

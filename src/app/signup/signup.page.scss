@@ -1,0 +1,86 @@
+/* Spinner Styles */
+.spinner-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ion-spinner {
+    --spinner-color: #000000;
+    --width: 64px;
+    --height: 64px;
+}
+
+/* Header */
+.backbtn {
+    font-size: 2em;
+    margin-left: 15px;
+    color: #222;
+    cursor: pointer;
+}
+
+.backbtn:hover {
+    color: #007bff;
+}
+
+/* Form Layout */
+.page-container {
+    padding: 1rem;
+}
+
+.label-custom {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+ion-item {
+    --padding-start: 0;
+    margin-bottom: 0.5rem;
+}
+
+/* Input placeholder */
+::placeholder {
+    font-size: 0.85em;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+/* Title styling */
+.title-center {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #3a86ff;
+    text-align: center;
+    width: 100%;
+}
+
+/* Error Notes */
+.error-note {
+    font-size: 0.85rem;
+    color: #e53935;
+    margin-left: 1rem;
+    display: block;
+}
+
+/* Submit Button */
+.main-button {
+    margin-top: 1rem;
+    font-weight: bold;
+    --background: #3a86ff;
+    --color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Sign-in Text */
+.sign-up-text {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #444;
+}

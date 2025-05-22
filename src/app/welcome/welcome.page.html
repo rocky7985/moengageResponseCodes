@@ -1,0 +1,18 @@
+<ion-content class="welcome-container" [fullscreen]="true">
+  <!-- Welcome Image as Background -->
+  <div class="welcome-image-container">
+    <ion-img src="assets/welcome.jpg" class="welcome-image"></ion-img>
+  </div>
+
+  <!-- Welcome Title and Description -->
+  <div class="welcome-content">
+    <h1>Welcome to Dog-Coded HTTP Status List Builder!</h1>
+    <p>We are excited to have you here. Please log in or sign up to get started.</p>
+  </div>
+
+  <!-- Links for Login and Signup -->
+  <div class="auth-links">
+    <a class="auth-link" (click)="goToLogin()">Log In</a>
+    <a class="auth-link" (click)="goToSignup()">Sign Up</a>
+  </div>
+</ion-content>

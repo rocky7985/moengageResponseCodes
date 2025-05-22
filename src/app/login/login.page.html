@@ -1,0 +1,71 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title class=" title-center">Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-spinner name="crescent" color="dark" *ngIf="loadProfileData"></ion-spinner>
+
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <ion-grid>
+      <ion-row class="page-container">
+        <ion-col size="12">
+
+          <ion-item>
+            <ion-label position="stacked" class="label-custom">Email</ion-label>
+            <ion-input formControlName="email" placeholder="Enter your Email Id" maxlength="20"></ion-input>
+            <ion-note
+              *ngIf="loginForm.get('email')?.hasError('required') && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)"
+              color="danger">
+              <ion-icon name="information-circle-outline"></ion-icon>
+              Email is required.
+            </ion-note>
+            <ion-note
+              *ngIf="loginForm.get('email')?.hasError('pattern') && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)"
+              color="danger">
+              <ion-icon name="information-circle-outline"></ion-icon>
+              Email must start with a small letter and contain only 1 special character.
+            </ion-note>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked" class="label-custom">Password</ion-label>
+            <ion-input [type]="showPassword ? 'text' : 'password'" formControlName="password"
+              placeholder="Enter your Password" maxlength="15"></ion-input>
+            <ion-icon slot="end" [name]="showPassword ? 'eye-outline' : 'eye-off-outline'"
+              (click)="toggleShowPassword()"></ion-icon>
+            <ion-note
+              *ngIf="loginForm.get('password')?.hasError('required') && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)"
+              color="danger">
+              <ion-icon name="information-circle-outline"></ion-icon>
+              Password is required.
+            </ion-note>
+            <ion-note
+              *ngIf="loginForm.get('password')?.hasError('pattern') && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)"
+              color="danger">
+              <ion-icon name="information-circle-outline"></ion-icon>
+              Password must contain at least one uppercase, one lowercase letter, one number, and one special character.
+            </ion-note>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-checkbox formControlName="rememberMe" slot="start"></ion-checkbox>
+            <ion-label>RememberMe</ion-label>
+          </ion-item>
+
+          <ion-button expand="block" type="submit" [disabled]="loginForm.invalid">
+            Sign In
+          </ion-button>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+  <ion-row>
+    <ion-col> Don't have an account?
+      <ion-text expand="block" color="danger" type="submit" (click)="goToSignup()">Register?</ion-text>
+    </ion-col>
+  </ion-row>
+</ion-content>

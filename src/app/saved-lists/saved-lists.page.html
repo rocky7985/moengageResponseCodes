@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/search" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Saved Lists</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- Spinner shown when processing -->
+  <ion-grid *ngIf="isProcessing" class="spinner-container">
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="12" class="ion-text-center">
+        <ion-spinner name="crescent"></ion-spinner>
+        <ion-text color="medium">
+          <p>Processing...</p>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Main saved lists section -->
+  <ion-list *ngIf="savedLists.length > 0 && !isProcessing">
+    <ng-container *ngFor="let list of savedLists; let i = index">
+
+      <!-- Collapsed view -->
+      <ion-item button detail (click)="toggleList(i)" *ngIf="expandedIndex !== i">
+        <ion-label>
+          <h2>{{ list.name }}</h2>
+        </ion-label>
+        <ion-buttons slot="end">
+          <ion-button fill="clear" color="primary"
+            (click)="editSavedList(list.id, list.name); $event.stopPropagation();">
+            <ion-icon name="create-outline"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" color="danger"
+            (click)="deleteSavedList(list.id, list.name); $event.stopPropagation();">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+
+      <!-- Expanded view -->
+      <ion-item button detail (click)="toggleList(i)" *ngIf="expandedIndex === i">
+        <ion-label>
+          <h2>{{ list.name }}</h2>
+          <p>Total codes:{{ list.codes.length }}</p>
+          <p>Date: {{ list.created_date }}</p>
+        </ion-label>
+        <ion-buttons slot="end">
+          <ion-button fill="clear" color="primary"
+            (click)="editSavedList(list.id, list.name); $event.stopPropagation();">
+            <ion-icon name="create-outline"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" color="danger"
+            (click)="deleteSavedList(list.id, list.name); $event.stopPropagation();">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+
+      <!-- Image grid -->
+      <ion-grid *ngIf="expandedIndex === i" class="ion-padding-start">
+        <ion-row>
+          <ion-col size="6" size-md="4" *ngFor="let code of list.codes">
+            <ion-card>
+              <img [src]="getImageUrl(code)" [alt]="'HTTP code ' + code" />
+              <ion-card-content>
+                <ion-card-title>{{ code }}</ion-card-title>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ng-container>
+  </ion-list>
+
+  <!-- Message if no saved lists found -->
+  <ion-grid *ngIf="savedLists.length === 0 && !isProcessing">
+    <ion-row>
+      <ion-col size="12" class="ion-text-center">
+        <ion-text color="medium">
+          <p>No saved lists found.</p>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
